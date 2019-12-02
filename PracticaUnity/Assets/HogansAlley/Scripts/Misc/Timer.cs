@@ -12,6 +12,7 @@ public class Timer
     bool running;
 
     public float ElapsedTime { get { return elapsedTime;  } }
+    public float CountDown { get { return Mathf.Clamp(interval - elapsedTime, 0f, float.MaxValue); } }
 
     public event Action timerFinished;
 

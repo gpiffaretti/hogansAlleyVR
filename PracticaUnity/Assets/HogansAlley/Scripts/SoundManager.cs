@@ -20,4 +20,9 @@ public class SoundManager : Singleton<SoundManager>
     {
         effects2D.PlayOneShot(clip);
     }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        music.PlayOneShot(clip);
+    }
 }

@@ -9,6 +9,9 @@ public class Zapper : MonoBehaviour
     LayerMask layermask;
 
     [SerializeField]
+    float maxDistance = 15;
+
+    [SerializeField]
     Transform shotOrigin;
 
     [SerializeField]
@@ -19,10 +22,12 @@ public class Zapper : MonoBehaviour
 
     public event Action<Person> shot;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,9 +35,8 @@ public class Zapper : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            Debug.Log("Fire!");
-            float maxDistance = 10;
-
+            //Debug.Log("Fire!");
+            
             Person hitPerson = null;
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
@@ -45,11 +49,11 @@ public class Zapper : MonoBehaviour
 
             if (hitPerson != null && hitPerson.IsEnemy)
             {
-                SoundManager.Instance.Play2DSound(shotEnemySound);
+                audioSource.PlayOneShot(shotEnemySound);
             }
             else
             {
-                SoundManager.Instance.Play2DSound(shotMissSound);
+                audioSource.PlayOneShot(shotMissSound);
             }
 
             shot?.Invoke(hitPerson);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : Singleton<Spawner>
 {
     private static int NextPersonID;
 
@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     /// These are the child objects of this gameObject
     /// </summary>
     [SerializeField]
-    private Transform[] spawnPoints;
+    private List<Transform> spawnPoints;
 
     // We keep track of taken and free spawn points. We only store their indexes
     private List<int> takenSpawnPoints;
@@ -36,33 +36,44 @@ public class Spawner : MonoBehaviour
 
     private Coroutine spawningCorroutine;
 
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip peopleInstantiatedClip;
+
+    private void Awake()
+    {
+        spawnPoints = new List<Transform>(12);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        spawnPoints = new Transform[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            spawnPoints[i] = transform.GetChild(i);
-        }
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Initialize()
     {
+        Debug.Log("Spawner initialize");
         // Initialize level 0
         CheckNextDifficuly();
 
         // initialize lists with enough capacity to store all spawn points
-        takenSpawnPoints = new List<int>(spawnPoints.Length);
-        freeSpawnPoints = new List<int>(spawnPoints.Length);
+        takenSpawnPoints = new List<int>(spawnPoints.Count);
+        freeSpawnPoints = new List<int>(spawnPoints.Count);
 
         // initialize list with all free spawn points
-        for (int i = 0; i < spawnPoints.Length; i++)
+        for (int i = 0; i < spawnPoints.Count; i++)
         {
             freeSpawnPoints.Add(i);
         }
 
         personSpawnPointMap = new Dictionary<Person, int>();
+    }
+
+    public void AddSpawnPoint(SpawnPoint point)
+    {
+        spawnPoints.Add(point.transform);
     }
 
     public void StartSpawning()
@@ -84,10 +95,10 @@ public class Spawner : MonoBehaviour
 
         if (hideExisting)
         {
-            foreach (Person person in personSpawnPointMap.Keys)
-            {
-                person.Hide();
-            }
+            //foreach (Person person in personSpawnPointMap.Keys)
+            //{
+            //    person.Hide();
+            //}
         }
     }
 
@@ -130,7 +141,8 @@ public class Spawner : MonoBehaviour
 
                 SpawnPerson();
             }
-            
+            audioSource.PlayOneShot(peopleInstantiatedClip);
+
             CheckNextDifficuly();
 
             // get a random time span for next spawn based on current difficulty
@@ -150,9 +162,10 @@ public class Spawner : MonoBehaviour
         float personDisplayTime = UnityEngine.Random.Range(currentDifficulty.DisplayTimeRange.Min, currentDifficulty.DisplayTimeRange.Max);
 
         newPerson.Initialize(NextPersonID++, personDisplayTime);
-        newPerson.personDead += OnPersonDeadHandler;
+        newPerson.personKilled += OnPersonDeadHandler;
         newPerson.personHide += OnPersonHideHandler;
 
+        //Debug.Log($"Add person {newPerson.Id} to spawn point map");
         personSpawnPointMap[newPerson] = spawnPointIndex; // remember who took this spawn point
 
         personInstantiated?.Invoke(newPerson);
@@ -165,23 +178,15 @@ public class Spawner : MonoBehaviour
         FreeSpawnPoint(spawnPointIndexToReturn);
 
         // remove this person from the map
+        //Debug.Log($"Remove person {person.Id} from spawn point map");
         personSpawnPointMap.Remove(person);
     }
 
     private void OnPersonDeadHandler(Person person)
     {
-        // free the point
-        int spawnPointIndexToReturn = personSpawnPointMap[person];
-        FreeSpawnPoint(spawnPointIndexToReturn);
-
-        // remove this person from the map
-        personSpawnPointMap.Remove(person);
+        
     }
 
-    private void SetPersonDifficulty()
-    {
-
-    }
 
     private Person GetRandomPerson()
     {

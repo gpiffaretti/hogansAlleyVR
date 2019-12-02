@@ -7,6 +7,7 @@ using System;
 public class Person : MonoBehaviour
 {
     private int id;
+    public int Id { get { return id; } }
 
     [SerializeField]
     bool isEnemy;
@@ -14,18 +15,25 @@ public class Person : MonoBehaviour
 
     [SerializeField]
     private int personKilledScore;
+    public int PersonKilledScore { get { return personKilledScore; } }
 
     [SerializeField]
     private int enemyShotScore;
+    public int EnemyShotScore { get { return enemyShotScore; } }
 
     float displayTime;
 
     Timer timer;
     Animator animator;
 
-    public event Action<Person> personShot;
+    public event Action<Person> enemyShot;
     public event Action<Person> personHide;
-    public event Action<Person> personDead;
+    public event Action<Person> personKilled;
+
+    [SerializeField]
+    AudioClip personHitClip;
+
+    AudioSource audioSource;
 
     float initTime;
 
@@ -34,6 +42,7 @@ public class Person : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -59,6 +68,8 @@ public class Person : MonoBehaviour
         {
             animator.SetTrigger("hit");
             isUp = false;
+            personKilled?.Invoke(this);
+            audioSource.PlayOneShot(personHitClip);
         }
     }
 
@@ -78,7 +89,7 @@ public class Person : MonoBehaviour
     private void Shoot()
     {
         //Debug.Log($"{gameObject.name} shoots!");
-        personShot?.Invoke(this);
+        enemyShot?.Invoke(this);
 
 
     }

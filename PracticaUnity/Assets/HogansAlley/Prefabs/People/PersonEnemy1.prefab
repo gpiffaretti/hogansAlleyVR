@@ -17,6 +17,16 @@ PrefabInstance:
       propertyPath: isEnemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
+        type: 3}
+      propertyPath: personKilledScore
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
+        type: 3}
+      propertyPath: enemyShotScore
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 5360331647846341220, guid: 72fefbe0d871f4e458cfe0167da17af6,
         type: 3}
       propertyPath: m_LocalPosition.x
