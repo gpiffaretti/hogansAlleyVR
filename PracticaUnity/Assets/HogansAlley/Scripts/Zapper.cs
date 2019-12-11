@@ -28,12 +28,24 @@ public class Zapper : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        OVRInput.Controller controllers = OVRInput.GetConnectedControllers();
+        if (controllers.HasFlag(OVRInput.Controller.LTrackedRemote))
+        {
+            Debug.Log("Detected left controller");
+        }
+
+        if (controllers.HasFlag(OVRInput.Controller.RTrackedRemote))
+        {
+            Debug.Log("Detected right controller");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger | OVRInput.Button.SecondaryIndexTrigger))
         {
             //Debug.Log("Fire!");
             

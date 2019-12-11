@@ -130,7 +130,8 @@ public class Person : MonoBehaviour
     {
         //Debug.Log($"{gameObject.name} hides!");
         collisionBox.enabled = false;
-        animator.SetTrigger("hide");
+		fireSprite.SetActive(false);
+		animator.SetTrigger("hide");
         isUp = false;
     }
 

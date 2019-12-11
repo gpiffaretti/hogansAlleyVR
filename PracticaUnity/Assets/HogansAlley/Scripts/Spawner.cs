@@ -95,10 +95,10 @@ public class Spawner : Singleton<Spawner>
 
         if (hideExisting)
         {
-            //foreach (Person person in personSpawnPointMap.Keys)
-            //{
-            //    person.Hide();
-            //}
+            foreach (Person person in personSpawnPointMap.Keys)
+            {
+                person.Hide();
+            }
         }
     }
 
