@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,11 +26,13 @@ public class UIManager : Singleton<UIManager>
 
         mainMenu.startClicked += OnButtonStartClick;
         inGameMenu.stopClicked += OnButtonStopClick;
+        inGameMenu.returnClicked += OnButtonReturnClick;
 
         mainMenu.Show();
         current = mainMenu;
     }
 
+    
     void OnButtonStartClick()
     {
         // Do something?
@@ -37,7 +40,12 @@ public class UIManager : Singleton<UIManager>
 
     public void OnButtonStopClick()
     {
+        gameManager.StopGame();
+    }
 
+    private void OnButtonReturnClick()
+    {
+        StartCoroutine(MenuTransition(mainMenu));
     }
 
     private void OnGameStartedHandler()
@@ -47,7 +55,7 @@ public class UIManager : Singleton<UIManager>
 
     private void OnGameFinishedHandler()
     {
-        StartCoroutine(MenuTransition(mainMenu));
+        
     }
 
     private IEnumerator MenuTransition(UIMenu next)

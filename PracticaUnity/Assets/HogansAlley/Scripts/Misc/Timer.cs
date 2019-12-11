@@ -34,6 +34,8 @@ public class Timer
 
         if (Completed())
         {
+            running = false;
+            elapsedTime = interval;
             timerFinished?.Invoke();
         }
     }

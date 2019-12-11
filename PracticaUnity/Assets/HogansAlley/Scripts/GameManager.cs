@@ -30,6 +30,8 @@ public class GameManager : Singleton<GameManager>
     public event Action gameStarted;
 	public event Action gameFinished;
 
+    public event Action<int> newHighscore;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +92,7 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitUntil(() => sceneLoadedFlag);
 
         isPlaying = true;
+        timer.Reset();
         timer.Start();
         spawner.StartSpawning();
         gameStarted?.Invoke();
@@ -104,21 +107,21 @@ public class GameManager : Singleton<GameManager>
     {
         if (CurrentScore > highscore)
         {
+            Debug.Log("New highscore!");
             highscore = CurrentScore;
             PlayerPrefs.SetInt("highscore", CurrentScore);
+            newHighscore?.Invoke(highscore);
         }
         
     }
 
     public void StopGame()
     {
-        isPlaying = false;
-        spawner.StopSpawning(true);
+        FinishGame();
     }
 
     private void FinishGame()
     {
-        timer.Reset();
         isPlaying = false;
         spawner.StopSpawning(true);
         SoundManager.Instance.PlayMusic(gameEndsClip);
@@ -137,7 +140,7 @@ public class GameManager : Singleton<GameManager>
     private void OnPersonInstantiated(Person person)
     {
         person.personKilled += OnPersonKilledHandler;
-        person.enemyShot += OnEnemyShotHandler;
+        person.enemyShot += OnShotByEnemyHandler;
     }
 
     void OnPersonKilledHandler(Person person)
@@ -145,7 +148,7 @@ public class GameManager : Singleton<GameManager>
         AddScore(person.PersonKilledScore);
     }
 
-    void OnEnemyShotHandler(Person person)
+    void OnShotByEnemyHandler(Person person)
     {
         AddScore(person.EnemyShotScore);
     }
