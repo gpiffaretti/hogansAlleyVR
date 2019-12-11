@@ -10,7 +10,6 @@ public class InGameMenu : UIMenu
     public Button endButton;
     public Button returnButton;
     public TextMeshProUGUI labelTimer;
-    public TextMeshProUGUI labelRound;
     public TextMeshProUGUI labelScore;
     public TextMeshProUGUI labelHighscore;
 

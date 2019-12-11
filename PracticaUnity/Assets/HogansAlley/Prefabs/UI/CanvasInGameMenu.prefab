@@ -1048,8 +1048,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 147.84546}
-  m_SizeDelta: {x: 300, y: 65.7}
+  m_AnchoredPosition: {x: 0, y: 222}
+  m_SizeDelta: {x: 315.6, y: 91.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6483598172745758946
 CanvasRenderer:
@@ -1108,8 +1108,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 80.2
-  m_fontSizeBase: 80.2
+  m_fontSize: 93.9
+  m_fontSizeBase: 93.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1342,7 +1342,7 @@ GameObject:
   - component: {fileID: 6673328385722371323}
   - component: {fileID: 8460578424549433297}
   m_Layer: 5
-  m_Name: LabelRound
+  m_Name: LabelTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1364,8 +1364,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 54.016113, y: 223}
-  m_SizeDelta: {x: 80, y: 100}
+  m_AnchoredPosition: {x: 4, y: 142}
+  m_SizeDelta: {x: 446.2, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6673328385722371323
 CanvasRenderer:
@@ -1395,18 +1395,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 1
+  m_text: time
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e8a5c64af032e44e884a6f551f1eaeb6, type: 2}
-  m_sharedMaterial: {fileID: 8064996217198794729, guid: e8a5c64af032e44e884a6f551f1eaeb6,
+  m_fontAsset: {fileID: 11400000, guid: 8981e61633c0f45819e0928c9d9effa3, type: 2}
+  m_sharedMaterial: {fileID: -229966602703581778, guid: 8981e61633c0f45819e0928c9d9effa3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281323640
-  m_fontColor: {r: 0.47058827, g: 0.81568635, b: 0.18431373, a: 1}
+    rgba: 4289440683
+  m_fontColor: {r: 0.67058825, g: 0.67058825, b: 0.67058825, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1424,8 +1424,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 127.9
-  m_fontSizeBase: 127.9
+  m_fontSize: 98.1
+  m_fontSizeBase: 98.1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8460578424549433297}
-    characterCount: 1
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

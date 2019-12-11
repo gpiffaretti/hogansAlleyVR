@@ -9,13 +9,25 @@ public class SkyAnimator : MonoBehaviour
     Zapper zapper;
     Animator skyAnimator;
 
+
     private void Start()
     {
         zapper = FindObjectOfType<Zapper>();
         skyAnimator = GameObject.FindGameObjectWithTag("skyAnimator").GetComponent<Animator>();
 
         zapper.shot += OnShotHandler;
-        
+        Spawner spawner = FindObjectOfType<Spawner>();
+        spawner.personInstantiated += OnPersonInstantiated;
+    }
+
+    private void OnPersonInstantiated(Person person)
+    {
+        person.enemyShot += OnEnemyShot;
+    }
+
+    private void OnEnemyShot(Person enemy)
+    {
+        skyAnimator.SetTrigger("innocentShot");
     }
 
     private void OnShotHandler(Person person)

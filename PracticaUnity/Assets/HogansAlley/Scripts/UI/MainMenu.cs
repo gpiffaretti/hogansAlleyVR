@@ -34,8 +34,6 @@ public class MainMenu : UIMenu
         startClicked?.Invoke();
     }
 
-    
-
     protected override void OnShow()
     {
         labelHighscore.text = gameManager.Highscore.ToString("000000");

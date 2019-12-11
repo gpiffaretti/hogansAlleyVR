@@ -21,7 +21,15 @@ public class Person : MonoBehaviour
     private int enemyShotScore;
     public int EnemyShotScore { get { return enemyShotScore; } }
 
+    [SerializeField]
+    GameObject fireSprite;
+
     float displayTime;
+
+    /// <summary>
+    /// This is the time between the "Fire" signal and the actual shot
+    /// </summary>
+    float shootHintTime = 0.7f;
 
     Timer timer;
     Animator animator;
@@ -33,11 +41,22 @@ public class Person : MonoBehaviour
     [SerializeField]
     AudioClip personHitClip;
 
+    [SerializeField]
+    AudioClip enemyShoutFireClip;
+
+    [SerializeField]
+    AudioClip enemyShotClip;
+
+    [SerializeField]
+    BoxCollider collisionBox;
+
     AudioSource audioSource;
 
     float initTime;
 
     bool isUp;
+
+    Coroutine personCoroutine;
 
     private void Awake()
     {
@@ -59,44 +78,58 @@ public class Person : MonoBehaviour
 
         isUp = true;
 
-        initTime = Time.time;
+        personCoroutine = StartCoroutine(PersonCoroutine());
+    }
+
+    private IEnumerator PersonCoroutine()
+    {
+        yield return new WaitForSeconds(this.displayTime - this.shootHintTime);
+
+        if (isEnemy)
+        {
+            // play fire effect
+            audioSource.PlayOneShot(enemyShoutFireClip);
+            fireSprite.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(this.shootHintTime);
+
+        if (isEnemy)
+        {
+            Shoot();
+            fireSprite.SetActive(false);
+        }
+
+        Hide();
     }
 
     public void Hit()
     {
         if (isUp)
         {
+            collisionBox.enabled = false;
+            StopCoroutine(personCoroutine);
+            personCoroutine = null;
             animator.SetTrigger("hit");
             isUp = false;
+            fireSprite.SetActive(false);
             personKilled?.Invoke(this);
             audioSource.PlayOneShot(personHitClip);
         }
     }
 
-    private void Update()
-    {
-        if (Time.time - initTime >= displayTime && isUp)
-        {
-            if (isEnemy)
-                Shoot();
-
-            Hide();
-
-        }
-    }
-
-
     private void Shoot()
     {
         //Debug.Log($"{gameObject.name} shoots!");
+        audioSource.PlayOneShot(enemyShotClip);
         enemyShot?.Invoke(this);
-
 
     }
 
     public void Hide()
     {
         //Debug.Log($"{gameObject.name} hides!");
+        collisionBox.enabled = false;
         animator.SetTrigger("hide");
         isUp = false;
     }
