@@ -7,21 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5360331647846341223, guid: 72fefbe0d871f4e458cfe0167da17af6,
-        type: 3}
-      propertyPath: m_Name
-      value: PersonInnocent3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
-        type: 3}
-      propertyPath: isBad
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
-        type: 3}
-      propertyPath: personKilledScore
-      value: -500
-      objectReference: {fileID: 0}
     - target: {fileID: 5360331647846341220, guid: 72fefbe0d871f4e458cfe0167da17af6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -76,6 +61,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
+        type: 3}
+      propertyPath: isBad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360331647846341221, guid: 72fefbe0d871f4e458cfe0167da17af6,
+        type: 3}
+      propertyPath: personKilledScore
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360331647846341223, guid: 72fefbe0d871f4e458cfe0167da17af6,
+        type: 3}
+      propertyPath: m_Name
+      value: PersonInnocent3
       objectReference: {fileID: 0}
     - target: {fileID: 6168472020459487453, guid: 72fefbe0d871f4e458cfe0167da17af6,
         type: 3}
